@@ -9,7 +9,8 @@ tots els botons porten a la botiga d'Amazon o a la fitxa de cada producte.
   persona física).
 - Correu: `customerservice@smileitems.com` → arriba a `quimqu@gmail.com`
   (Cloudflare Email Routing) i s'hi respon des de Gmail «en nom de» (SMTP de
-  Resend).
+  Brevo). Resend no: el pla gratuït només admet un domini i ja el fa servir
+  silncy.
 
 ## Estructura
 
@@ -91,22 +92,22 @@ customerservice@ rebotava).
 3. *Routing rules* → `customerservice@smileitems.com` → *Send to* →
    `quimqu@gmail.com`.
 
-### 4. Enviar: Resend
+### 4. Enviar: Brevo (compte de Double Q Works, pla gratuït: 300 correus/dia)
 
-1. Resend → *Domains* → *Add domain* → `smileitems.com`, regió **eu-west-1**.
-2. Afegir els registres que dona a Cloudflare DNS, tots en **DNS only** (núvol
-   gris). Seran aquests tres (copiar els valors exactes de Resend):
-   - `TXT resend._domainkey` → la clau DKIM
-   - `MX send` → `feedback-smtp.eu-west-1.amazonses.com`, prioritat 10
-   - `TXT send` → `v=spf1 include:amazonses.com ~all`
+1. Brevo → ⚙ → *Senders, Domains & Dedicated IPs* → *Domains* → `smileitems.com`
+   → mètode **Automatic** (Domain Connect amb Cloudflare). Fet el 18/10/2026; va
+   afegir:
+   - `TXT @` → `brevo-code:...` (verificació)
+   - `CNAME brevo1._domainkey` / `brevo2._domainkey` → `b1/b2.smileitems-com.dkim.brevo.com`
+     (DKIM; Brevo en té una d'activa i l'altra de recanvi)
+   - `TXT _dmarc` → `v=DMARC1; p=none; rua=mailto:rua@dmarc.brevo.com`
 
-   Van al subdomini `send`, o sigui que **no xoquen** amb els MX d'Email Routing
-   de l'arrel. Resend també pot afegir-los sol si li connectes Cloudflare.
-3. *Verify*.
-4. Afegir DMARC a Cloudflare: `TXT _dmarc` → `v=DMARC1; p=none;`
-   (més endavant, quan tot vagi bé, `p=quarantine`).
-5. Resend → *API Keys* → *Create* → nom `gmail-smtp`, permís **Sending access**,
-   domini **smileitems.com**. Copiar-la: només es veu un cop.
+   Els MX i l'SPF d'Email Routing queden igual: Cloudflare els té bloquejats.
+2. Brevo demana verificar el telèfon abans del primer enviament.
+3. ⚙ → *SMTP & API* → *SMTP* → *Generate a new SMTP key* (nom `gmail`).
+   El *Login* és una adreça `...@smtp-brevo.com`, no el correu del compte.
+4. Si el correu transaccional té el seguiment d'obertures/clics activat,
+   desactivar-lo (reescriu els enllaços de les respostes).
 
 ### 5. Gmail «en nom de»
 
@@ -115,8 +116,8 @@ importación* → *Enviar como* → *Añadir otra dirección de correo electrón
 
 - Nombre: `Smile Items` · Correo: `customerservice@smileitems.com` · deixar
   marcat *Tratar como un alias*.
-- Servidor SMTP `smtp.resend.com` · port **465** · usuari `resend` ·
-  contrasenya = l'API key del pas 4.5 · *Conexión segura con SSL*.
+- Servidor SMTP `smtp-relay.brevo.com` · port **587** · usuari = el *Login* de
+  Brevo · contrasenya = la clau SMTP · *Conexión segura con TLS*.
 - Gmail envia un codi a customerservice@ → arriba al mateix Gmail per Email
   Routing → enganxar-lo.
 - Al mateix apartat, marcar *Responder desde la misma dirección a la que se
@@ -128,7 +129,8 @@ importación* → *Enviar como* → *Añadir otra dirección de correo electrón
 - Des d'un altre compte (no des del mateix Gmail, que deduplica), escriure a
   customerservice@smileitems.com → ha d'arribar a quimqu@gmail.com.
 - Respondre'l → al destinatari, *Mostrar original* ha de dir
-  `SPF: PASS`, `DKIM: PASS (smileitems.com)`, `DMARC: PASS`.
+  `DKIM: PASS (smileitems.com)` i `DMARC: PASS` (l'SPF passa amb el domini de
+  Brevo; no cal que estigui alineat perquè ja ho està el DKIM).
 
 ## Pendents
 
