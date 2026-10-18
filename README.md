@@ -52,8 +52,11 @@ Des d'Ubuntu (WSL), on wrangler ja té sessió iniciada amb quimqu@gmail.com:
 cd /mnt/c/dev/smileitems-web && npx wrangler pages deploy public --project-name smileitems --branch main --commit-dirty=true
 ```
 
-La primera vegada cal crear el projecte abans:
-`npx wrangler pages project create smileitems --production-branch main`.
+El projecte es va crear el 18/10/2026 amb
+`npx wrangler pages project create smileitems --production-branch main --force`.
+El `--force` cal perquè wrangler 4.151 ara intenta convertir els projectes nous
+de Pages en Workers. Un cop creat, els `pages deploy` ja van directes a Pages
+i no s'hi ha de posar `--force`.
 
 ---
 
