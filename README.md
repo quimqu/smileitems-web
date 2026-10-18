@@ -138,7 +138,8 @@ importación* → *Enviar como* → *Añadir otra dirección de correo electrón
 
 - **CIF i dades del Registre Mercantil** de Double Q Works a `aviso-legal/`
   (la LSSI les exigeix; hi ha un comentari `PENDENT` al lloc).
-- Repositori a GitHub (`quimqu/smileitems-web`, privat) i `git push`.
+- Redirecció `www` → arrel (Cloudflare → Rules → Redirect Rules → plantilla
+  «Redirect from WWW to root»).
 - Donar d'alta la propietat a Search Console i enviar el sitemap.
 
 ## Gotcha de xarxa
