@@ -114,8 +114,10 @@ customerservice@ rebotava).
 Gmail (quimqu@gmail.com) → ⚙ → *Ver todos los ajustes* → *Cuentas e
 importación* → *Enviar como* → *Añadir otra dirección de correo electrónico*:
 
-- Nombre: `Smile Items` · Correo: `customerservice@smileitems.com` · deixar
-  marcat *Tratar como un alias*.
+- Nombre: `Smile Items` · Correo: `customerservice@smileitems.com` ·
+  **DESMARCAR *Tratar como un alias***. Si queda marcat, Gmail respon des de
+  quimqu@ encara que el correu hagi arribat a customerservice@ (comprovat el
+  18/10/2026).
 - Servidor SMTP `smtp-relay.brevo.com` · port **587** · usuari = el *Login* de
   Brevo · contrasenya = la clau SMTP · *Conexión segura con TLS*.
 - Gmail envia un codi a customerservice@ → arriba al mateix Gmail per Email
