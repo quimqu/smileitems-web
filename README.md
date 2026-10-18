@@ -128,6 +128,10 @@ importación* → *Enviar como* → *Añadir otra dirección de correo electrón
 
 ### Comprovar-ho
 
+Fet el 18/10/2026: mail-tester.com 10/10 (DKIM, SPF i DMARC en verd) i
+redirecció 301 de `www` a l'arrel conservant ruta i paràmetres.
+
+
 - Des d'un altre compte (no des del mateix Gmail, que deduplica), escriure a
   customerservice@smileitems.com → ha d'arribar a quimqu@gmail.com.
 - Respondre'l → al destinatari, *Mostrar original* ha de dir
@@ -138,8 +142,6 @@ importación* → *Enviar como* → *Añadir otra dirección de correo electrón
 
 - **CIF i dades del Registre Mercantil** de Double Q Works a `aviso-legal/`
   (la LSSI les exigeix; hi ha un comentari `PENDENT` al lloc).
-- Redirecció `www` → arrel (Cloudflare → Rules → Redirect Rules → plantilla
-  «Redirect from WWW to root»).
 - Donar d'alta la propietat a Search Console i enviar el sitemap.
 
 ## Gotcha de xarxa
